@@ -2,9 +2,11 @@ import { useState, useEffect, useMemo } from "react";
 import styles from "./index.module.scss";
 import Core from "./core";
 import { v4 as uuidv4 } from "uuid";
-import { HighlightItem, Switch } from "./components";
 import { generateReadableColor } from "./utils";
 import { version } from "../../package.json";
+import Switch from "./components/Switch";
+import HighlightItem from "./components/HighlightItem";
+
 const Popup = () => {
   // 用户输入框的内容
   const [highlightInput, setHighlightInput] = useState("");
@@ -13,22 +15,7 @@ const Popup = () => {
   const [filterText, setFilterText] = useState("");
 
   // 高亮列表
-  const [currentHighlights, setCurrentHighlights] = useState<HighlightItem[]>(
-    () => {
-      // 如果是build 环境下，默认为空数组
-      if (process.env.NODE_ENV === "production") {
-        return [];
-      }
-      return Array.from({ length: 20 }).map((_, i) => ({
-        text: `高亮文本 ${i + 1}`,
-        color: generateReadableColor(), // 背景颜色
-        textColor: "#fff", // 文字颜色
-        id: uuidv4(), // id
-        isUnderline: false, //下划线
-        isWavy: false, //波浪线
-      }));
-    }
-  );
+  const [currentHighlights, setCurrentHighlights] = useState<HighlightItem[]>([]);
   // 是否开启高亮插件
   const [isHighlightEnabled, setIsHighlightEnabled] = useState(true);
 
@@ -42,16 +29,6 @@ const Popup = () => {
     // 获取高亮开关状态
     Core.getStorage("highlightEnabled").then((enabled) => {
       setIsHighlightEnabled(enabled !== undefined ? enabled : true);
-    });
-    Core.tabsQuery({ active: true, currentWindow: true }).then((res) => {
-      const tabId = res[0]?.url;
-      if (
-        tabId?.startsWith("chrome://") ||
-        tabId?.startsWith("edge://") ||
-        tabId?.startsWith("about:")
-      ) {
-        alert("当前标签页无法正常使用，请切换到普通网站页面");
-      }
     });
   }, []);
 
@@ -98,8 +75,8 @@ const Popup = () => {
       alert("请输入要高亮的文字");
       return;
     }
-    const tabs = await Core.tabsQuery({ active: true, currentWindow: true });
 
+    const tabs = await Core.tabsQuery({ active: true, currentWindow: true });
     const response = await Core.tabSendMessage(tabs[0].id, {
       action: "importHighlights",
       highlights: highlightTexts,
@@ -109,26 +86,7 @@ const Popup = () => {
       setHighlightInput("");
       loadHighlights();
     } else {
-      const highlights = (await Core.getStorage("highlights")) || [];
-      // 去重
-      const newHighlights = [...highlights, ...highlightTexts];
-
-      // 去重
-      const uniqueHighlights = Array.from(
-        new Map(newHighlights.map((h) => [h.text, h])).values()
-      ).sort((a, b) => a.text.localeCompare(b.text));
-      Core.setStorage("highlights", uniqueHighlights);
-      setCurrentHighlights(uniqueHighlights);
-      if (
-        tabs[0]?.url?.startsWith("chrome://") ||
-        tabs[0]?.url?.startsWith("edge://") ||
-        tabs[0]?.url?.startsWith("about:")
-      ) {
-        alert("已成功添加,但当前标签页无法正常使用，请切换到普通网站页面");
-        return;
-      } else {
-        alert("已成功添加,但当前页面无法高亮文字，请刷新页面后重试");
-      }
+      alert("高亮失败，请确保页面已完全加载,请切换到其他标签页后刷新页面");
     }
   };
 
@@ -198,24 +156,19 @@ const Popup = () => {
    * 导出当前页面的高亮文本
    */
   const exportHighlights = () => {
-    try {
-      const highlightsText = currentHighlights
-        .map((highlight) => highlight.text)
-        .join("\n");
-      const blob = new Blob([highlightsText], { type: "text/plain" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "highlights.txt";
-      document.body.appendChild(a);
-      a.click();
-      alert("高亮已导出为 highlights.txt");
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    } catch (e) {
-      alert("导出失败，请刷新页面后重试");
-      console.error("导出失败", e);
-    }
+    const highlightsText = currentHighlights
+      .map((highlight) => highlight.text)
+      .join("\n");
+    const blob = new Blob([highlightsText], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "highlights.txt";
+    document.body.appendChild(a);
+    a.click();
+    alert("高亮已导出为 highlights.txt");
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   /**
@@ -278,26 +231,6 @@ const Popup = () => {
     });
   };
 
-  /**
-   * 导出v2版本，json格式
-   */
-  const exportHighlightsV2 = async () => {
-    try {
-      const highlights = (await Core.getStorage("highlights")) || [];
-      const doc = document.createElement("a");
-      const blob = new Blob([JSON.stringify(highlights, null, 2)], {
-        type: "application/json",
-      });
-      const url = URL.createObjectURL(blob);
-      doc.href = url;
-      doc.download = `highlights-${new Date().toISOString().slice(0, 10)}.json`;
-      document.body.appendChild(doc);
-      doc.click();
-      document.body.removeChild(doc);
-      URL.revokeObjectURL(url);
-    } catch (e) {}
-  };
-
   return (
     <div className={styles.popupContainer}>
       <div className={styles.header}>
@@ -348,9 +281,6 @@ const Popup = () => {
 
           <button onClick={refreshHighlights} className={styles.refreshBtn}>
             更新
-          </button>
-          <button onClick={exportHighlightsV2} className={styles.exportBtn2}>
-            v2导出
           </button>
         </div>
       </div>

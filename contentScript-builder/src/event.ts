@@ -39,6 +39,7 @@ class PubSub {
 }
 
 export const EVENT = {
+  /** 刷新高亮 */
    HIGHLIGHTS_REFRESHED: "highlightsRefreshed"
 }
 

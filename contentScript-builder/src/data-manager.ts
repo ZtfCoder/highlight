@@ -1,41 +1,38 @@
-import { getStorage,  setStorage } from "./chrome";
+import { getStorage, setStorage } from "./chrome";
 import { EVENT } from "./event";
 import pubsub from "./event";
-import { highlightObj, setHighlightObj } from "./state";
+import { highlightGroups, setHighlightGroups } from "./state";
 import { refreshHighlights } from "./helpers";
+
+const storageKey = "highlightGroups";
 
 /**
  * 加载已有的高亮
  * 从缓存中获取
  */
 export const loadExistingHighlights = async () => {
-  const highlights = (await getStorage("highlights")) || [];
-  setHighlightObj(highlights.sort((a: HighlightItem, b: HighlightItem) => a.text.localeCompare(b.text)));
+  const highlights: HighlightGroup[] = (await getStorage(storageKey)) || [];
+  // 首先对组进行排序
+  setHighlightGroups(highlights);
 };
 
 /**
  * 批量导入
  */
 export const importHighlights = async (
-  highlights: HighlightItem[],
-  successCallBack: (highlights: HighlightItem[]) => void
+  groups: HighlightGroup[],
+  successCallBack?: (highlights: HighlightGroup[]) => void
 ) => {
-  if (!highlights || !Array.isArray(highlights)) {
+  
+  if (!groups || !Array.isArray(groups)) {
     console.error("导入高亮失败：无效的高亮数据");
-    successCallBack([]);
+    successCallBack?.([]);
     return;
   }
-
-  const highlightsStorage = (await getStorage("highlights")) || [];
-  const newHighlights = [...highlightsStorage, ...highlights];
-
-  // 去重
-  const uniqueHighlights = Array.from(
-    new Map(newHighlights.map((h) => [h.text, h])).values()
-  ).sort((a, b) => a.text.localeCompare(b.text));
-  await setStorage("highlights", uniqueHighlights);
+ 
+  await setStorage(storageKey, groups);
   refreshHighlights();
-  successCallBack(highlights);
+  successCallBack?.(groups);
 };
 
 /**
@@ -45,16 +42,16 @@ export const removeHighlight = async (
   highlightId: string,
   successCallBack: () => void
 ) => {
-  const highlightsStorage: HighlightItem[] =
-    (await getStorage("highlights")) || [];
+  const highlightsStorage: HighlightGroup[] =
+    (await getStorage(storageKey)) || [];
 
   const updatedHighlights = highlightsStorage.filter(
     (highlight) => highlight.id !== highlightId
   );
 
-  await setStorage("highlights", updatedHighlights);
+  await setStorage(storageKey, updatedHighlights);
   successCallBack();
-  pubsub.publish(EVENT.HIGHLIGHTS_REFRESHED, highlightObj);
+  pubsub.publish(EVENT.HIGHLIGHTS_REFRESHED, highlightGroups);
 };
 
 /**
@@ -62,7 +59,7 @@ export const removeHighlight = async (
  * @param successCallBack
  */
 export const removeAllHighlights = async (successCallBack?: () => void) => {
-  await setStorage("highlights", []);
+  await setStorage(storageKey, []);
   successCallBack?.();
   pubsub.publish(EVENT.HIGHLIGHTS_REFRESHED);
 };

@@ -35,14 +35,24 @@ const tabSendMessage = (id: string, message: any): Promise<any> => {
   });
 }
 
+/** 高亮存储key */
+const storageKey = "highlightGroups";
 
+/** v2版本高亮存储key */
+const storageKeyV2 = "highlights";
+
+/** 默认分组的id */
+const defaultGroupNameId = "default";
 
 
 const Core = {
   getStorage,
   setStorage,
   tabsQuery,
-  tabSendMessage
+  tabSendMessage,
+  storageKey,
+  defaultGroupNameId,
+  storageKeyV2
 }
 
 export default Core;

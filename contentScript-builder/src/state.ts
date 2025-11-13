@@ -9,7 +9,7 @@ export const observeMap = new Map<
 >();
 
 // 高亮对象数组
-export let highlightObj: HighlightItem[] = [];
+export let highlightGroups: HighlightGroup[] = [];
 
 // 是否开启
 export let enabled = true;
@@ -21,8 +21,8 @@ export const currentHighlightNames = new Set<string>();
 export const eventUnsubscribers = new Set<() => void>();
 
 // 更新高亮对象数组
-export const setHighlightObj = (highlights: HighlightItem[]) => {
-  highlightObj = highlights;
+export const setHighlightGroups = (groups: HighlightGroup[]) => {
+  highlightGroups = groups;
 };
 
 // 更新启用状态

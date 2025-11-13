@@ -1,7 +1,6 @@
 import { EVENT } from "./event";
 import pubsub from "./event";
-import { clearAllHighlights } from "./highlight";
-import { enabled, highlightObj } from "./state";
+import { enabled, highlightGroups } from "./state";
 import { loadExistingHighlights } from "./data-manager";
 
 /**
@@ -12,7 +11,7 @@ export const refreshHighlights = () => {
   if (enabled) {
     // 重新加载高亮
     loadExistingHighlights().then(() => {
-      pubsub.publish(EVENT.HIGHLIGHTS_REFRESHED, highlightObj);
+      pubsub.publish(EVENT.HIGHLIGHTS_REFRESHED, highlightGroups);
     });
   }
 };

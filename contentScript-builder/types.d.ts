@@ -49,20 +49,28 @@ declare interface Chrome {
 declare const chrome: Chrome;
 
 interface HighlightItem {
+  /** id  */
   id: string;
+  /** 文字  */
   text: string;
   /** 背景颜色 */
   color: string;
-  /** 文字颜色 */ 
+  /** 文字颜色 */
   textColor:string
-  /** 下划线  */
-  isUnderline: boolean;
-  /**  加粗 */
-  isBold: boolean;
+  /** 下划线 */
+  isUnderline?: boolean;
   /** 波浪线 */
-  isWavy: boolean;
+  isWavy?: boolean;
+  /** 是否启用 */
+  enabled: boolean;
 }
 
+interface HighlightGroup {
+  id: string;
+  name: string;
+  enabled: boolean;
+  items: HighlightItem[];
+}
 
 interface Window {
   CSS: {

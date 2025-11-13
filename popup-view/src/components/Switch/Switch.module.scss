@@ -20,9 +20,9 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   outline: none;
-  
-  &:focus {
-    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
+ 
+  &:active{
+    border: none;
   }
   
   &.small {

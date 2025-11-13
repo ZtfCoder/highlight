@@ -1,5 +1,5 @@
 import { findTextRanges, runConcurrently } from "./utils";
-import { currentHighlightNames, highlightObj, observeMap } from "./state";
+import { currentHighlightNames, highlightGroups, observeMap } from "./state";
 import pubsub, { EVENT } from "./event";
 import { removeAllHighlights, removeHighlight } from "./data-manager";
 
@@ -58,39 +58,89 @@ export const applyHighlightStyles = async (
     });
     observeEntry?.heightlightNames.clear();
 
-    const highlightPromises = highlightObj.map(
-      (highlight, index) => async () => {
-        {
-          // console.log(targetDocument,targetWindow.CSS)
-          const ranges = findTextRanges(highlight.text, targetDocument);
-          if (ranges.length > 0) {
-            const highlightName = `highlight-${index}-${Math.random()
-              .toString(36)
-              .substring(2, 9)}`;
 
-            // 创建CSS ::highlight() 规则
-            css += `
-            ::highlight(${highlightName}) {
-              background-color: ${highlight.color};
-              color: ${highlight.textColor || "#fff"};
-              ${highlight.isUnderline ? "text-decoration: underline;" : ""}
-              ${highlight.isWavy ? "text-decoration: underline wavy ;" : ""}
-          }
-        `;
 
-            // 创建Highlight对象并注册
-            const highlightObj = new Highlight(...ranges);
-            targetWindow.CSS.highlights.set(highlightName, highlightObj);
-            // 记录新的highlight名称
-            currentHighlightNames.add(highlightName);
-            observeEntry?.heightlightNames.add(highlightName);
-          } else {
-            // console.warn(`未找到文本 "${highlight.text}" 的高亮范围`);
+    const highlightsMaps = highlightGroups
+      .filter((item) => item.enabled)
+      .flatMap((group) => group.items)
+      .filter((item) => item.enabled)
+      .reduce((acc,curr)=>{
+        if(!acc.has(curr.text)){
+          acc.set(curr.text,curr);
+        }
+        return acc;
+      },new Map<string,HighlightItem>());
+    const highlights = Array.from(highlightsMaps.values());
+
+    // 按文本长度降序排序，优先处理长词
+    highlights.sort((a, b) => b.text.length - a.text.length);
+
+    // 记录已高亮的范围，避免重叠
+    const occupiedRanges: Array<{start: Node, startOffset: number, end: Node, endOffset: number}> = [];
+
+    // 检查范围是否与已占用范围重叠
+    const isRangeOccupied = (range: Range): boolean => {
+      for (const occupied of occupiedRanges) {
+        // 简化的重叠检查：如果节点相同且偏移范围有交集
+        if (range.startContainer === occupied.start && range.endContainer === occupied.end) {
+          const rangeStart = range.startOffset;
+          const rangeEnd = range.endOffset;
+          const occupiedStart = occupied.startOffset;
+          const occupiedEnd = occupied.endOffset;
+          
+          // 检查是否有重叠
+          if (!(rangeEnd <= occupiedStart || rangeStart >= occupiedEnd)) {
+            return true;
           }
         }
       }
-    );
-    await runConcurrently(highlightPromises);
+      return false;
+    };
+     
+    // 顺序处理高亮（不能并发，因为需要按长度优先避免覆盖）
+    for (let index = 0; index < highlights.length; index++) {
+      const highlight = highlights[index];
+      // console.log(targetDocument,targetWindow.CSS)
+      const ranges = findTextRanges(highlight.text, targetDocument);
+      
+      // 过滤掉已被占用的范围
+      const validRanges = ranges.filter(range => !isRangeOccupied(range));
+      
+      if (validRanges.length > 0) {
+        const highlightName = `highlight-${index}-${Math.random()
+          .toString(36)
+          .substring(2, 9)}`;
+
+        // 创建CSS ::highlight() 规则
+        css += `
+          ::highlight(${highlightName}) {
+            background-color: ${highlight.color};
+            color: ${highlight.textColor || "#fff"};
+            ${highlight.isUnderline ? "text-decoration: underline;" : ""}
+            ${highlight.isWavy ? "text-decoration: underline wavy ;" : ""}
+        }
+      `;
+
+        // 记录这些范围为已占用
+        validRanges.forEach(range => {
+          occupiedRanges.push({
+            start: range.startContainer,
+            startOffset: range.startOffset,
+            end: range.endContainer,
+            endOffset: range.endOffset
+          });
+        });
+
+        // 创建Highlight对象并注册
+        const highlightObj = new Highlight(...validRanges);
+        targetWindow.CSS.highlights.set(highlightName, highlightObj);
+        // 记录新的highlight名称
+        currentHighlightNames.add(highlightName);
+        observeEntry?.heightlightNames.add(highlightName);
+      } else {
+        // console.warn(`未找到文本 "${highlight.text}" 的高亮范围`);
+      }
+    }
 
     style.textContent = css;
   } catch (e) {
@@ -109,6 +159,6 @@ export const clearAllHighlights = async () => {
       (CSS.highlights as any).delete(name);
     });
     currentHighlightNames.clear();
-    await removeAllHighlights()
+    await removeAllHighlights();
   }
 };

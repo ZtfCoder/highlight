@@ -1,0 +1,117 @@
+/* 高亮词列表 */
+.highlightItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  background-color: #ffffff;
+  border: 1px solid #eaeaea;
+  cursor: pointer;
+}
+
+.highlightItem.active {
+  border-color: #2196F3;
+  background-color: #e3f2fd;
+}
+
+.highlightItem:hover {
+  background-color: #f5f5f5;
+}
+
+.highlightItem.active:hover {
+  background-color: #e3f2fd;
+}
+
+.highlightItemContent {
+  display: flex;
+  align-items: center;
+}
+
+.colorPreview {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  margin-right: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.highlightText {
+  font-size: 13px;
+}
+
+.highlightItemControls {
+  display: flex;
+  align-items: center;
+}
+
+.deleteBtn {
+  background: none;
+  border: none;
+  margin-left: 8px;
+  padding: 3px;
+  cursor: pointer;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deleteBtn:hover {
+  opacity: 1;
+}
+
+.deleteBtn svg {
+  fill: #f44336;
+}
+
+/* 小型开关 */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 18px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}

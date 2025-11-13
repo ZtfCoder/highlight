@@ -5,6 +5,7 @@ import { importHighlights, removeHighlight } from "./data-manager";
 import { refreshHighlights } from "./helpers";
 // 添加这个未定义的引用
 import { currentHighlightNames } from "./state";
+import pubsub, { EVENT } from "./event";
 
 /**
  * 开启监听
@@ -31,7 +32,7 @@ export const setupMessageListener = () => {
       }
 
       if (request.action === "refreshHighlights") {
-        importHighlights(request.highlights, () => {
+        importHighlights(request.groups, () => {
           sendResponse({ success: true });
         });
       }
@@ -53,6 +54,13 @@ export const setupMessageListener = () => {
           }
         }
         sendResponse({ success: true });
+      }
+
+      if(request.action === "setGlobalEnabled"){
+        setEnabled(request.enabled);
+        // 存储 到本地
+        setStorage("highlightEnabled", enabled);
+        pubsub.publish(EVENT.HIGHLIGHTS_REFRESHED)
       }
       return true; // 保持消息通道开放
     }
