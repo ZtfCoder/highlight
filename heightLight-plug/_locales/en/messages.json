@@ -1,0 +1,14 @@
+{
+  "extName": {
+    "message": "Text Highlight Display",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "A text highlighting plugin compatible with React websites, allowing custom addition and saving of highlighted text",
+    "description": "Extension description"
+  },
+  "extDefaultTitle": {
+    "message": "Text Highlight Display",
+    "description": "Extension default title"
+  }
+}

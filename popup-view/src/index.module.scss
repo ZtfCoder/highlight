@@ -1,0 +1,129 @@
+/* Popup.module.css - 样式文件 */
+.popupContainer {
+  padding: 0 10px;
+  background: #f5f7fa;
+  margin: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+  width: 400px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  border-bottom: 2px solid #f0f0f0;
+  padding: 10px 15px;
+  .version{
+    font-size: 12px;
+    padding-left: 5px;
+  }
+}
+
+.addSection {
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  .inputSection {
+    margin-bottom: 20px;
+    padding: 5px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    background-color: #fff;
+  }
+  .inputGroup {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .highlightInput {
+    flex: 1;
+    padding: 6px 8px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    height: 50px;
+  }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 30px 20px;
+  color: #7f8c8d;
+  background-color: #fff;
+}
+
+
+
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+  button {
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  .btnPrimary {
+    background: #3a5cc7;
+  }
+  .btnDanger {
+    background: #5b6469;
+  }
+  .importBtn {
+    background: #208838;
+  }
+  .exportBtn {
+    background: #efefef;
+    color: #000;
+  }
+  .refreshBtn {
+    color: #000;
+    background: #ffc107;
+  }
+  .exportBtn2{
+    background: #17a2b8;
+    color: #fff;
+  }
+}
+
+.listSection {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  .filterTextInput {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .highlightsList {
+    max-height: 320px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+}
+

@@ -1,0 +1,14 @@
+{
+  "extName": {
+    "message": "文字高亮显示",
+    "description": "扩展名称"
+  },
+  "extDescription": {
+    "message": "一个兼容React网站的文字高亮显示插件，可以自定义添加需要高亮的文字并保存",
+    "description": "扩展描述"
+  },
+  "extDefaultTitle": {
+    "message": "文字高亮显示",
+    "description": "扩展默认标题"
+  }
+}

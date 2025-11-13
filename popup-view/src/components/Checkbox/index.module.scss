@@ -1,0 +1,42 @@
+.checkbox {
+  // 隐藏原生 checkbox
+  position: absolute;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.customCheckbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background: #fff;
+  border: 1px solid #ccc;
+  display: inline-block;
+  position: relative;
+  transition: border-color 0.2s;
+  cursor: pointer;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+// 选中时显示勾选
+.checkbox:checked + .customCheckbox {
+  border-color: #409eff;
+  background: #409eff;
+}
+.checkbox:checked + .customCheckbox::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 0px;
+  width: 6px;
+  height: 12px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  pointer-events: none;
+}

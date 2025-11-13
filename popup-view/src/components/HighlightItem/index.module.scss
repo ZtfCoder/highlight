@@ -1,0 +1,103 @@
+.highlightItem {
+  padding: 10px;
+  background: white;
+  margin-bottom: 1px;
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+  &:not(:last-child) {
+    border-bottom: 1px solid #f0f0f0;
+  }
+  &:hover {
+    background: #f9f9f9;
+  }
+
+  .highlightControls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .delBtn {
+    background-color: transparent;
+    color: #e74c3c;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s ease;
+    &:hover {
+      opacity: 0.9;
+      background: rgba(220, 53, 69, 0.1);
+    }
+  }
+
+  .highlightText {
+    flex: 1;
+    font-size: 13px;
+    line-height: 1.4;
+    margin-right: 10px;
+  }
+  .pickColorContainer {
+    position: relative;
+    margin-right: 10px;
+    .colorMain {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      border-radius: 4px;
+       border: 1px solid #ccc;
+    }
+    .highlightColor {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+
+      // margin-right: 8px;
+     
+      // border: none;
+      background-color: transparent;
+      opacity: 0;
+      cursor: pointer;
+    }
+  }
+  .highlightContent {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+}
+
+
+.editHightlight {
+  background: #F5F7FA !important;
+}
+
+
+.editHightlightContainer{
+  padding: 3px 0 ;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);   
+  font-size: 12px;
+  grid-row-gap: 5px;
+  .editHightlightItem{
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    position: relative;
+  }
+  
+}
+
+.previewText{
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 10px 0;
+}

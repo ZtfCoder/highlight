@@ -1,0 +1,19 @@
+{
+  "name": "yp-heightlight-main",
+  "version": "2.1.2",
+  "description": "浏览器插件高亮",
+  "scripts": {
+    "b":"npm run build",
+    "build": "npm run build-view && npm run build-content",
+    "build-content": "cd contentScript-builder && npm run build",
+    "build-view": "cd popup-view && npm run build",
+    "prebuild": "node sync-version.js",
+    "postbuild": "node zip-dist.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "adm-zip": "^0.5.16"
+  }
+}

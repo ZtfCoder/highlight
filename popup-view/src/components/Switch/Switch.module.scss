@@ -1,0 +1,122 @@
+/* Switch.module.scss - Switch 组件样式 */
+.switchContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.label {
+  font-size: 14px;
+  color: #333;
+  user-select: none;
+  cursor: pointer;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  border-radius: 50px;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  outline: none;
+  
+  &:focus {
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
+  }
+  
+  &.small {
+    width: 32px;
+    height: 18px;
+    
+    .thumb {
+      width: 14px;
+      height: 14px;
+      top: 2px;
+      left: 2px;
+    }
+    
+    &.checked .thumb {
+      transform: translateX(14px);
+    }
+  }
+  
+  &.medium {
+    width: 44px;
+    height: 24px;
+    
+    .thumb {
+      width: 20px;
+      height: 20px;
+      top: 2px;
+      left: 2px;
+    }
+    
+    &.checked .thumb {
+      transform: translateX(20px);
+    }
+  }
+  
+  &.large {
+    width: 56px;
+    height: 30px;
+    
+    .thumb {
+      width: 26px;
+      height: 26px;
+      top: 2px;
+      left: 2px;
+    }
+    
+    &.checked .thumb {
+      transform: translateX(26px);
+    }
+  }
+  
+  &.checked {
+    background-color: #667eea;
+  }
+  
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.thumb {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 悬停效果 */
+.switch:not(.disabled):hover {
+  .thumb {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* 激活状态 */
+.switch:not(.disabled):active {
+  .thumb {
+    transform: scale(0.95);
+  }
+  
+  &.small.checked .thumb {
+    transform: translateX(14px) scale(0.95);
+  }
+  
+  &.medium.checked .thumb {
+    transform: translateX(20px) scale(0.95);
+  }
+  
+  &.large.checked .thumb {
+    transform: translateX(26px) scale(0.95);
+  }
+}
