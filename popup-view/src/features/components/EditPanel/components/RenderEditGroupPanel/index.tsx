@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "../../EditPanel.module.scss";
 import Select from "../../../../../components/Select";
+import { t } from "../../../../../i18n";
 
 /**
  * 编辑分组
@@ -26,16 +27,16 @@ const RenderEditGroupPanel = (props: {
       setNewGroupName("");
     }
     setTargetGroupId(originId);
-  }, [panelMode, originId]);
+  }, [panelMode, originId, groups]);
 
   return (
     <div className={styles.editPanel}>
       <div className={styles.formGroup}>
-        <label htmlFor="group-name">分组名称</label>
+        <label htmlFor="group-name">{t("groupNameLabel")}</label>
         <input
           type="text"
           id="group-name"
-          placeholder="输入新分组名称"
+          placeholder={t("createNewGroup")}
           value={newGroupName}
           onChange={(e) => setNewGroupName(e.target.value)}
           className={styles.input}
@@ -44,9 +45,9 @@ const RenderEditGroupPanel = (props: {
 
       <div className={styles.formGroup}>
         <label htmlFor="move-group-name">
-          移动到其他分组
+          {t("moveToOtherGroup")}
           <b className={styles.labelDesc}>
-            (请注意你在做什么！！！，如果你不知道这个选项，不要随意更改这个选项，不可恢复！！！)
+            {t("moveGroupWarning")}
           </b>
         </label>
         <Select
@@ -62,14 +63,14 @@ const RenderEditGroupPanel = (props: {
 
       <div className={styles.actionButtons}>
         <button className={styles.cancelBtn} onClick={onCancel}>
-          取消
+          {t("cancel")}
         </button>
         <button
           className={styles.saveBtn}
           onClick={() => handleSave?.(newGroupName.trim(), targetGroupId, originId)}
           disabled={!newGroupName.trim()}
         >
-          保存修改
+          {t("saveChanges")}
         </button>
       </div>
     </div>

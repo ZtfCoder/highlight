@@ -3,6 +3,7 @@ import styles from "../../EditPanel.module.scss";
 import { v4 as uuidv4 } from "uuid";
 import Select from "../../../../../components/Select";
 import Core from "../../../../../core";
+import { t } from "../../../../../i18n";
 
 /**
  * 新增/编辑 关键词
@@ -64,7 +65,7 @@ const RenderEditPanel = (props: {
       setTextColor(selectedHighlight.textColor || "#ffffff");
     } else {
       setText("");
-      setGroupId("default");
+      setGroupId(Core.defaultGroupNameId);
       setTextColor("#ffffff");
       setBgColor("#4caf50");
       setUnderline(false);
@@ -90,17 +91,17 @@ const RenderEditPanel = (props: {
   return (
     <div className={styles.editPanel}>
       <div className={styles.formGroup}>
-        <label htmlFor="highlight-text">高亮词文本</label>
+        <label htmlFor="highlight-text">{t("highlightTextLabel")}</label>
         <textarea
           id="highlight-text"
-          placeholder="输入要高亮的文字"
+          placeholder={t("highlightTextPlaceholder")}
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
       </div>
 
       <div className={styles.formGroup}>
-        <label htmlFor="highlight-group">所属分组</label>
+        <label htmlFor="highlight-group">{t("groupLabel")}</label>
         <Select
           id="highlight-group"
           value={groupId}
@@ -114,7 +115,7 @@ const RenderEditPanel = (props: {
 
       <div className={styles.formRow}>
         <div className={styles.formGroup}>
-          <label htmlFor="text-color">文字颜色</label>
+          <label htmlFor="text-color">{t("textColor")}</label>
           <div className={styles.colorPicker}>
             <input
               type="color"
@@ -126,7 +127,7 @@ const RenderEditPanel = (props: {
           </div>
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="bg-color">背景颜色</label>
+          <label htmlFor="bg-color">{t("backgroundColor")}</label>
           <div className={styles.colorPicker}>
             <input
               type="color"
@@ -151,7 +152,7 @@ const RenderEditPanel = (props: {
             <span className={`${styles.optionIcon} ${styles.underlineIcon}`}>
               U
             </span>
-            <span className={styles.optionText}>下划线</span>
+            <span className={styles.optionText}>{t("underline")}</span>
           </label>
         </div>
         <div className={styles.styleOption}>
@@ -163,32 +164,32 @@ const RenderEditPanel = (props: {
           />
           <label htmlFor="style-wavy">
             <span className={`${styles.optionIcon} ${styles.wavyIcon}`}>~</span>
-            <span className={styles.optionText}>波浪线</span>
+            <span className={styles.optionText}>{t("wavyLine")}</span>
           </label>
         </div>
       </div>
 
       <div className={styles.previewSection}>
-        <h3>样式预览</h3>
+        <h3>{t("stylePreview")}</h3>
         <div className={styles.previewContent}>
           <p>
-            这是一段包含
-            <span style={getPreviewStyle()}>{text || "高亮文字"}</span>
-            的示例文字。您可以在此看到高亮效果的实时预览。
+            {t("highlightPreviewText")}
+            <span style={getPreviewStyle()}>{text || t("highlightPlaceholder")}</span>
+            {t("highlightPreviewTextEnd")}
           </p>
         </div>
       </div>
 
       <div className={styles.actionButtons}>
         <button className={styles.cancelBtn} onClick={onCancel}>
-          取消
+          {t("cancel")}
         </button>
         <button
           className={styles.saveBtn}
           onClick={handleSave}
           disabled={!text.trim()}
         >
-          保存
+          {t("save")}
         </button>
       </div>
     </div>

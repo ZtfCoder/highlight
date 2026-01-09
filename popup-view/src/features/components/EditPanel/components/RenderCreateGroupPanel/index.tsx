@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "../../EditPanel.module.scss";
+import { t } from "../../../../../i18n";
 /**
  * 新增分组
  * @returns
@@ -17,11 +18,11 @@ import styles from "../../EditPanel.module.scss";
   return (
     <div className={styles.editPanel}>
       <div className={styles.formGroup}>
-        <label htmlFor="group-name">分组名称</label>
+        <label htmlFor="group-name">{t("groupNameLabel")}</label>
         <input
           type="text"
           id="group-name"
-          placeholder="输入新分组名称"
+          placeholder={t("createNewGroup")}
           value={newGroupName}
           onChange={(e) => setNewGroupName(e.target.value)}
           className={styles.input}
@@ -30,14 +31,14 @@ import styles from "../../EditPanel.module.scss";
 
       <div className={styles.actionButtons}>
         <button className={styles.cancelBtn} onClick={onCancel}>
-          取消
+          {t("cancel")}
         </button>
         <button
           className={styles.saveBtn}
           onClick={()=>handleSave?.(newGroupName.trim(),)}
           disabled={!newGroupName.trim()}
         >
-          创建分组
+          {t("createGroup")}
         </button>
       </div>
     </div>

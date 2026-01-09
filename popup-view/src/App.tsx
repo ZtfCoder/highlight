@@ -6,6 +6,7 @@ import { generateReadableColor } from "./utils";
 import { version } from "../../package.json";
 import Switch from "./components/Switch";
 import HighlightItem from "./components/HighlightItem";
+import { t } from "./i18n";
 
 const Popup = () => {
   // 用户输入框的内容
@@ -72,7 +73,7 @@ const Popup = () => {
       }));
 
     if (highlightTexts.length === 0) {
-      alert("请输入要高亮的文字");
+      alert(t("inputError"));
       return;
     }
 
@@ -86,7 +87,7 @@ const Popup = () => {
       setHighlightInput("");
       loadHighlights();
     } else {
-      alert("高亮失败，请确保页面已完全加载,请切换到其他标签页后刷新页面");
+      alert(t("highlightFailed"));
     }
   };
 
@@ -94,7 +95,7 @@ const Popup = () => {
    * 清除当前页面的所有高亮
    */
   const clearAllHighlights = async () => {
-    if (window.confirm("确定要清除当前页面的所有高亮吗？")) {
+    if (window.confirm(t("clearConfirm"))) {
       const tabs = await Core.tabsQuery({ active: true, currentWindow: true });
       if (!tabs || tabs.length === 0) return;
 
@@ -136,15 +137,15 @@ const Popup = () => {
               action: "importHighlights",
               highlights: lines,
             });
-            console.log("导入高亮返回值", response);
+            console.log(t("importHighlightLog"), response);
             // 更新当前页面的高亮
             setCurrentHighlights(response.highlights);
           } else {
-            alert("导入的文件格式不正确");
+            alert(t("importError"));
           }
         } catch (error) {
-          console.error("解析文件失败", error);
-          alert("解析文件失败，请确保文件格式正确");
+          console.error(t("parseFileFailed"), error);
+          alert(t("parseError"));
         }
       };
       reader.readAsText(file);
@@ -166,7 +167,7 @@ const Popup = () => {
     a.download = "highlights.txt";
     document.body.appendChild(a);
     a.click();
-    alert("高亮已导出为 highlights.txt");
+    alert(t("exportSuccess"));
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
@@ -192,7 +193,6 @@ const Popup = () => {
   const deleteHighlight = async (highlight: HighlightItem) => {
     const tabs = await Core.tabsQuery({ active: true, currentWindow: true });
     if (!tabs || tabs.length === 0) return;
-    console.log("删除高亮", highlight);
     await Core.tabSendMessage(tabs[0].id, {
       action: "removeHighlight",
       id: highlight.id,
@@ -235,13 +235,13 @@ const Popup = () => {
     <div className={styles.popupContainer}>
       <div className={styles.header}>
         <h3>
-          文字高亮
-          <span className={styles.version}>当前版本：{version}</span>
+          {t("title")}
+          <span className={styles.version}>{t("currentVersion")}{version}</span>
         </h3>
         <Switch
           checked={isHighlightEnabled}
           onChange={onSwitchChange}
-          label="启用高亮"
+          label={t("enableHighlight")}
           size="small"
         />
       </div>
@@ -252,7 +252,7 @@ const Popup = () => {
             <textarea
               value={highlightInput}
               onChange={(e) => setHighlightInput(e.target.value)}
-              placeholder="输入要高亮的文字,自动解析逗号间隔,空格间隔,换行间隔"
+              placeholder={t("inputPlaceholder")}
               className={styles.highlightInput}
             />
           </div>
@@ -265,22 +265,22 @@ const Popup = () => {
               !highlightInput.trim() ? styles.disabled : ""
             }`}
           >
-            添加
+            {t("addBtn")}
           </button>
           <button onClick={clearAllHighlights} className={styles.btnDanger}>
-            清空
+            {t("clearBtn")}
           </button>
 
           <button onClick={importHighlights} className={styles.importBtn}>
-            导入
+            {t("importBtn")}
           </button>
 
           <button onClick={exportHighlights} className={styles.exportBtn}>
-            导出
+            {t("exportBtn")}
           </button>
 
           <button onClick={refreshHighlights} className={styles.refreshBtn}>
-            更新
+            {t("refreshBtn")}
           </button>
         </div>
       </div>
@@ -290,7 +290,7 @@ const Popup = () => {
           <input
             type="text"
             className={styles.filterTextInput}
-            placeholder="搜索高亮..."
+            placeholder={t("searchPlaceholder")}
             onChange={(e) => setFilterText(e.target.value)}
           />
         </div>
@@ -298,7 +298,7 @@ const Popup = () => {
         <div className={styles.highlightsList}>
           {heightLightFilter.length === 0 ? (
             <div className={styles.emptyState}>
-              <p>没有高亮内容。。。</p>
+              <p>{t("emptyState")}</p>
             </div>
           ) : (
             heightLightFilter.map((highlight) => (

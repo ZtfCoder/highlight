@@ -10,5 +10,341 @@
   "extDefaultTitle": {
     "message": "Text Highlight Display",
     "description": "Extension default title"
+  },
+  "title": {
+    "message": "Text Highlight",
+    "description": "Main title"
+  },
+  "currentVersion": {
+    "message": "Current version: ",
+    "description": "Version label"
+  },
+  "enableHighlight": {
+    "message": "Enable Highlight",
+    "description": "Enable highlight switch label"
+  },
+  "inputPlaceholder": {
+    "message": "Enter text to highlight, automatically parse comma-separated, space-separated, or line-separated",
+    "description": "Input placeholder"
+  },
+  "addBtn": {
+    "message": "Add",
+    "description": "Add button"
+  },
+  "clearBtn": {
+    "message": "Clear",
+    "description": "Clear button"
+  },
+  "importBtn": {
+    "message": "Import",
+    "description": "Import button"
+  },
+  "exportBtn": {
+    "message": "Export",
+    "description": "Export button"
+  },
+  "refreshBtn": {
+    "message": "Refresh",
+    "description": "Refresh button"
+  },
+  "searchPlaceholder": {
+    "message": "Search highlights...",
+    "description": "Search placeholder"
+  },
+  "emptyState": {
+    "message": "No highlight content...",
+    "description": "Empty state message"
+  },
+  "inputError": {
+    "message": "Please enter text to highlight",
+    "description": "Input empty error"
+  },
+  "highlightFailed": {
+    "message": "Highlight failed, please ensure the page is fully loaded, try switching to another tab and refreshing the page",
+    "description": "Highlight failed message"
+  },
+  "clearConfirm": {
+    "message": "Are you sure you want to clear all highlights on this page?",
+    "description": "Clear confirmation"
+  },
+  "exportSuccess": {
+    "message": "Highlights exported as highlights.txt",
+    "description": "Export success message"
+  },
+  "importError": {
+    "message": "The imported file format is incorrect",
+    "description": "Import format error"
+  },
+  "parseError": {
+    "message": "Failed to parse file, please ensure the file format is correct",
+    "description": "File parse error"
+  },
+  "groupNameEmpty": {
+    "message": "Group name cannot be empty",
+    "description": "Group name empty error"
+  },
+  "groupNotFound": {
+    "message": "Original group does not exist",
+    "description": "Group not found error"
+  },
+  "groupNameExists": {
+    "message": "Group name already exists, please use another name",
+    "description": "Group name duplicate error"
+  },
+  "targetGroupNotFound": {
+    "message": "Target group does not exist",
+    "description": "Target group not found error"
+  },
+  "moveGroupConfirm": {
+    "message": "Are you sure you want to move the highlights in this group to a new group? The group will be deleted after moving",
+    "description": "Move group confirmation"
+  },
+  "searchHighlightText": {
+    "message": "Search highlights...",
+    "description": "Search placeholder"
+  },
+  "highlightTextLabel": {
+    "message": "Highlight Text",
+    "description": "Highlight text label"
+  },
+  "highlightTextPlaceholder": {
+    "message": "Enter text to highlight",
+    "description": "Highlight input placeholder"
+  },
+  "groupLabel": {
+    "message": "Group",
+    "description": "Group label"
+  },
+  "createNewGroup": {
+    "message": "Enter new group name",
+    "description": "New group input placeholder"
+  },
+  "importSuccess": {
+    "message": "Import successful",
+    "description": "Import success message"
+  },
+  "importFailedOldVersion": {
+    "message": "Import failed, please use old version import",
+    "description": "Import failed message"
+  },
+  "importFailedNewVersion": {
+    "message": "Import failed, please use the new version export file for import or use the old version import function",
+    "description": "Import failed message"
+  },
+  "importFileFormatError": {
+    "message": "The imported file format is incorrect",
+    "description": "Import format error"
+  },
+  "exportFailed": {
+    "message": "Export failed, please refresh the page and try again",
+    "description": "Export failed message"
+  },
+  "defaultGroup": {
+    "message": "Default Group",
+    "description": "Default group name"
+  },
+  "frontendGroup": {
+    "message": "Frontend Related",
+    "description": "Frontend group name"
+  },
+  "backendGroup": {
+    "message": "Backend Related",
+    "description": "Backend group name"
+  },
+  "importHighlightLog": {
+    "message": "Import highlight return value",
+    "description": "Import log"
+  },
+  "parseFileFailed": {
+    "message": "Failed to parse file",
+    "description": "File parse failed log"
+  },
+  "deleteHighlightLog": {
+    "message": "Delete highlight",
+    "description": "Delete log"
+  },
+  "deleteGroupConfirm": {
+    "message": "Are you sure you want to delete this group? All highlights in the group will be deleted!!!",
+    "description": "Delete group confirmation"
+  },
+  "createNewGroupPanel": {
+    "message": "Create New Group",
+    "description": "Create new group panel title"
+  },
+  "addHighlightPanel": {
+    "message": "Add Highlight",
+    "description": "Add highlight panel title"
+  },
+  "editHighlightPanel": {
+    "message": "Edit Highlight: ",
+    "description": "Edit highlight panel title"
+  },
+  "emptyPanel": {
+    "message": "Operation Panel",
+    "description": "Empty operation panel title"
+  },
+  "editGroupPanel": {
+    "message": "Edit Group",
+    "description": "Edit group panel title"
+  },
+  "importExportPanel": {
+    "message": "Import and Export",
+    "description": "Import export panel title"
+  },
+  "highlightPreviewText": {
+    "message": "This is a paragraph containing",
+    "description": "Highlight preview text first part"
+  },
+  "highlightPreviewTextEnd": {
+    "message": "sample text. You can see the real-time preview of the highlight effect here.",
+    "description": "Highlight preview text second part"
+  },
+  "highlightPlaceholder": {
+    "message": "Highlight Text",
+    "description": "Highlight text placeholder"
+  },
+  "allGroups": {
+    "message": "All",
+    "description": "All groups option"
+  },
+  "newVersionImport": {
+    "message": "New Version Import",
+    "description": "New version import option"
+  },
+  "newVersionExport": {
+    "message": "New Version Export",
+    "description": "New version export option"
+  },
+  "oldVersionImport": {
+    "message": "Old Version Import",
+    "description": "Old version import option"
+  },
+  "v2VersionImport": {
+    "message": "V2 Version Convert Import",
+    "description": "V2 version convert import option"
+  },
+  "cancel": {
+    "message": "Cancel",
+    "description": "Cancel button"
+  },
+  "save": {
+    "message": "Save",
+    "description": "Save button"
+  },
+  "confirm": {
+    "message": "Confirm",
+    "description": "Confirm button"
+  },
+  "delete": {
+    "message": "Delete",
+    "description": "Delete button"
+  },
+  "edit": {
+    "message": "Edit",
+    "description": "Edit button"
+  },
+  "add": {
+    "message": "Add",
+    "description": "Add button"
+  },
+  "editGroup": {
+    "message": "Edit Group",
+    "description": "Edit group context menu"
+  },
+  "deleteGroup": {
+    "message": "Delete Group",
+    "description": "Delete group context menu"
+  },
+  "addHighlightWord": {
+    "message": "Add Highlight Word",
+    "description": "Add highlight word menu item"
+  },
+  "importExport": {
+    "message": "Import/Export",
+    "description": "Import export menu item"
+  },
+  "createNewGroup": {
+    "message": "Create New Group",
+    "description": "Create new group button"
+  },
+  "saveChanges": {
+    "message": "Save Changes",
+    "description": "Save changes button"
+  },
+  "createGroup": {
+    "message": "Create Group",
+    "description": "Create group button"
+  },
+  "groupNameLabel": {
+    "message": "Group Name",
+    "description": "Group name label"
+  },
+  "moveToOtherGroup": {
+    "message": "Move to Other Group",
+    "description": "Move to other group label"
+  },
+  "moveGroupWarning": {
+    "message": "(Please be careful with what you're doing!!! If you don't know what this option does, don't change it casually, it cannot be undone!!!)",
+    "description": "Move group warning message"
+  },
+  "textColor": {
+    "message": "Text Color",
+    "description": "Text color label"
+  },
+  "backgroundColor": {
+    "message": "Background Color",
+    "description": "Background color label"
+  },
+  "underline": {
+    "message": "Underline",
+    "description": "Underline option"
+  },
+  "wavyLine": {
+    "message": "Wavy Line",
+    "description": "Wavy line option"
+  },
+  "stylePreview": {
+    "message": "Style Preview",
+    "description": "Style preview title"
+  },
+  "emptyStateMessage": {
+    "message": "Please select a menu item or highlight on the left to operate",
+    "description": "Empty state message"
+  },
+  "importTypeLabel": {
+    "message": "Import from New Version File",
+    "description": "Import type label"
+  },
+  "groupSelectLabel": {
+    "message": "Group",
+    "description": "Group select label"
+  },
+  "newVersionImportDesc": {
+    "message": "New Version Import: Select a file exported from v3.0.0 or above for import. Note that only v3 or above export files can be selected, otherwise data loss may occur",
+    "description": "New version import description"
+  },
+  "newVersionExportDesc": {
+    "message": "New Version Export: This option will export the grouping function unique to v3, and all configurations will be preserved when exporting from this version",
+    "description": "New version export description"
+  },
+  "v2VersionImportDesc": {
+    "message": "V2 Version Import: Refers to files exported from v2.1.1 or above. This import option will preserve your previously set text color, background color, underline, wavy line and other settings",
+    "description": "V2 version import description"
+  },
+  "oldVersionImportDesc": {
+    "message": "Old Version Import: Refers to file import separated by line breaks and commas. If you previously used other plugins, you should select this option",
+    "description": "Old version import description"
+  },
+  "mainTitle": {
+    "message": "Text Highlight",
+    "description": "Main title"
+  },
+  "currentVersionLabel": {
+    "message": "Current version:",
+    "description": "Current version label"
+  },
+  "globalEnable": {
+    "message": "Global Enable",
+    "description": "Global enable label"
   }
 }

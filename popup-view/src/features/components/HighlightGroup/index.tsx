@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./HighlightGroup.module.scss";
 import HighlightItem from "../HighlightItem";
 import Switch from "../../../components/Switch";
+import Core from "../../../core";
 
 interface HighlightGroupProps {
   group: HighlightGroup;
@@ -19,7 +20,7 @@ interface HighlightGroupProps {
  */
 const HighlightGroup = (props: HighlightGroupProps) => {
   const { group, onHighlightSelect, onContextMenu, onGroupEnabled,onHighlightEnabled ,onDeleteHighlight} = props;
-  const [expanded, setExpanded] = useState(group.id === "default");
+  const [expanded, setExpanded] = useState(group.id === Core.defaultGroupNameId);
 
   const handleToggleExpand = () => {
     setExpanded(!expanded);
@@ -27,7 +28,7 @@ const HighlightGroup = (props: HighlightGroupProps) => {
 
   const handleContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (group.id !== "default") {
+    if (group.id !== Core.defaultGroupNameId) {
       // 默认分组不允许删除/编辑
       onContextMenu(e, group.id);
     }
@@ -61,7 +62,7 @@ const HighlightGroup = (props: HighlightGroupProps) => {
             }}
             size={"small"}
           />
-          {group.id !== "default" && (
+          {group.id !== Core.defaultGroupNameId && (
             <button
               className={styles.groupMenuBtn}
               onClick={(e) => {

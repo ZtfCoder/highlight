@@ -5,6 +5,7 @@ import RenderEditPanel from "./components/RenderEditPanel";
 import RenderImportAndExport from "./components/RenderImportAndExport";
 import RenderEditGroupPanel from "./components/RenderEditGroupPanel";
 import RenderEmptyState from "./components/RenderEmptyState";
+import { t } from "../../../i18n";
 
 interface EditPanelProps {
   selectedHighlight?: HighlightItem;
@@ -37,14 +38,14 @@ const EditPanel = (props: EditPanelProps) => {
     <div className={styles.content}>
       <div className={styles.contentHeader}>
         <h2>
-          {panelMode === "createGroup" && "创建新分组"}
-          {panelMode === "addHighlight" && "添加高亮词"}
+          {panelMode === "createGroup" && t("createNewGroupPanel")}
+          {panelMode === "addHighlight" && t("addHighlightPanel")}
           {panelMode === "edit" &&
             selectedHighlight &&
-            `编辑高亮词: ${selectedHighlight.text}`}
-          {panelMode === "empty" && "操作面板"}
-          {panelMode === "editGroup" && "编辑分组"}
-          {panelMode === "importExport" && "导入和导出"}
+            `${t("editHighlightPanel")}${selectedHighlight.text}`}
+          {panelMode === "empty" && t("emptyPanel")}
+          {panelMode === "editGroup" && t("editGroupPanel")}
+          {panelMode === "importExport" && t("importExportPanel")}
         </h2>
       </div>
 

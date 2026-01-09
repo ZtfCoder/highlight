@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Sidebar.module.scss";
 import HighlightGroup from "../HighlightGroup";
+import { t } from "../../../i18n";
 
 interface SidebarProps {
   /** 当前的分组 */
@@ -52,7 +53,7 @@ const Sidebar = (props: SidebarProps) => {
       <div className={styles.searchBox}>
         <input
           type="text"
-          placeholder="搜索高亮词..."
+          placeholder={t("searchHighlightText")}
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
@@ -78,13 +79,13 @@ const Sidebar = (props: SidebarProps) => {
           </svg>
         </div> */}
         <div className={styles.menuItem} onClick={onAddHighlight}>
-          <span>添加高亮词</span>
+          <span>{t("addHighlightWord")}</span>
           <svg viewBox="0 0 24 24" width="18" height="18">
             <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
           </svg>
         </div>
         <div className={styles.menuItem} onClick={onImportExport}>
-          <span>导入/导出</span>
+          <span>{t("importExport")}</span>
           <svg viewBox="0 0 24 24" width="18" height="18">
             <path d="M9 3L5 6.99h3V14h2V6.99h3L9 3zm7 14.01V10h-2v7.01h-3L15 21l4-3.99h-3z"></path>
           </svg>
@@ -96,7 +97,7 @@ const Sidebar = (props: SidebarProps) => {
             <svg viewBox="0 0 24 24" width="16" height="16">
               <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-1 8h-3v3h-2v-3h-3v-2h3V9h2v3h3v2z"></path>
             </svg>
-            <span>创建新分组</span>
+            <span>{t("createNewGroup")}</span>
           </button>
         </div>
 

@@ -9,6 +9,7 @@ import Switch from "../components/Switch";
 import Core from "../core";
 import pubsub, { EVENT } from "../utils/event";
 import {version} from "./../../../package.json"
+import { t } from "../i18n";
 
 /**
  * v3 版本 高亮插件
@@ -34,34 +35,34 @@ const FeaturesApp = () => {
   // 示例数据
   const [groups, setGroups] = useState<HighlightGroup[]>([
     {
-      id: "default",
-      name: "默认分组",
+      id: Core.defaultGroupNameId,
+      name: t("defaultGroup"),
       enabled: true,
       items: [
         {
           id: "1",
-          text: "重要通知323232",
+          text: "Important Notice",
           color: "#ffeb3b",
           enabled: true,
           textColor: "inherit",
         },
         {
           id: "2",
-          text: "技术文档",
+          text: "Technical Documentation",
           color: "#4caf50",
           enabled: true,
           textColor: "inherit",
         },
         {
           id: "3",
-          text: "错误信息",
+          text: "Error Message",
           color: "#f44336",
           enabled: true,
           textColor: "inherit",
         },
         {
           id: "4",
-          text: "开发提示",
+          text: "Development Tips",
           color: "#2196f3",
           enabled: true,
           textColor: "inherit",
@@ -70,19 +71,19 @@ const FeaturesApp = () => {
     },
     {
       id: "frontend",
-      name: "前端相关3232",
+      name: t("frontendGroup"),
       enabled: true,
       items: [
         {
           id: "5",
-          text: "前端框架",
+          text: "Frontend Framework",
           color: "#e91e63",
           enabled: true,
           textColor: "inherit",
         },
         {
           id: "6",
-          text: "待办事项",
+          text: "Todo Items",
           color: "#ff9800",
           enabled: true,
           textColor: "inherit",
@@ -91,12 +92,12 @@ const FeaturesApp = () => {
     },
     {
       id: "backend",
-      name: "后端相关",
+      name: t("backendGroup"),
       enabled: true,
       items: [
         {
           id: "7",
-          text: "后端接口",
+          text: "Backend API",
           color: "#9c27b0",
           enabled: true,
           textColor: "inherit",
@@ -111,6 +112,10 @@ const FeaturesApp = () => {
       const defaultGroup = newGroups.find(
         (item) => item.id === Core.defaultGroupNameId
       )!;
+      // 确保默认分组使用国际化的名称
+      if (defaultGroup) {
+        defaultGroup.name = t("defaultGroup");
+      }
       // 排序
       const groups = newGroups
         .filter((item) => item.id !== Core.defaultGroupNameId)
@@ -139,6 +144,8 @@ const FeaturesApp = () => {
       const defaultGroup = data.find(
         (item) => item.id === Core.defaultGroupNameId
       )!;
+      // 确保默认分组使用国际化的名称
+      defaultGroup.name = t("defaultGroup");
       const newGroups = data
         .filter((item) => item.id !== Core.defaultGroupNameId)
         .sort((a, b) => a.name.localeCompare(b.name))
@@ -152,7 +159,7 @@ const FeaturesApp = () => {
       const groups = [
         {
           id: Core.defaultGroupNameId,
-          name: "默认分组",
+          name: t("defaultGroup"),
           items: [],
           enabled: true,
         },
@@ -169,7 +176,7 @@ const FeaturesApp = () => {
       const groups: HighlightGroup[] = [
         {
           id: Core.defaultGroupNameId,
-          name: "默认分组",
+          name: t("defaultGroup"),
           items: [],
           enabled: true,
         },
@@ -253,7 +260,7 @@ const FeaturesApp = () => {
     originId?: string
   ) => {
     if (!groupName.trim()) {
-      alert("分组名称不能为空");
+      alert(t("groupNameEmpty"));
       return;
     }
 
@@ -261,7 +268,7 @@ const FeaturesApp = () => {
       // 编辑
       const originGroup = groups.find((g) => g.id === originId);
       if (!originGroup) {
-        alert("原分组不存在");
+        alert(t("groupNotFound"));
         return;
       }
       // 判断名称是否重复
@@ -269,7 +276,7 @@ const FeaturesApp = () => {
         (group) => group.name === groupName && group.id !== originId
       );
       if (exists) {
-        alert("分组名称已存在，请使用其他名称");
+        alert(t("groupNameExists"));
         return;
       }
       originGroup.name = groupName;
@@ -277,7 +284,7 @@ const FeaturesApp = () => {
       if (targetGroupId && targetGroupId !== originId) {
         // 分组id改变了
         const confirm = window.confirm(
-          "确定要将该分组下的高亮词移动到新分组吗？移动后该分组将被删除"
+          t("moveGroupConfirm")
         );
         if (!confirm) {
           return;
@@ -285,7 +292,7 @@ const FeaturesApp = () => {
         // 移动高亮词到新分组
         const targetGroup = groups.find((g) => g.id === targetGroupId);
         if (!targetGroup) {
-          alert("目标分组不存在");
+          alert(t("targetGroupNotFound"));
           return;
         }
         // 合并,如果有重复的名称，则以当前分组的高亮词为主
@@ -306,7 +313,7 @@ const FeaturesApp = () => {
       // 新增
       const exists = groups.some((group) => group.name === groupName);
       if (exists) {
-        alert("分组名称已存在，请使用其他名称");
+        alert(t("groupNameExists"));
         return;
       }
       const newGroup: HighlightGroup = {
@@ -337,7 +344,7 @@ const FeaturesApp = () => {
    */
   const handleDeleteGroup = () => {
     const isConfirmed = confirm(
-      "确定删除该分组吗？删除分组后，分组内的高亮词将被全部删除！！！"
+      t("deleteGroupConfirm")
     );
     if (isConfirmed) {
       const newGroups = groups.filter(
@@ -499,10 +506,10 @@ const FeaturesApp = () => {
     >
       <div className={styles.highlightPlugin}>
        <div className={styles.header}>
-          <h3 className={styles.title}>文字高亮 <span className={styles.version}>当前版本:{version}</span></h3>
+          <h3 className={styles.title}>{t("mainTitle")} <span className={styles.version}>{t("currentVersionLabel")}{version}</span></h3>
           {/* 全局开关 */}
         <div className={styles.globalSwitch}>
-          <span className={styles.switchLabel}>全局开启</span>
+          <span className={styles.switchLabel}>{t("globalEnable")}</span>
           <Switch
             checked={globalEnabled}
             onChange={handleChangeGlobalEnabled}

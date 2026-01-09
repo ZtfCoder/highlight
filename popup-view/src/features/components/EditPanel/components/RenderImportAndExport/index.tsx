@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useMemo, useState } from "react";
 import Select from "../../../../../components/Select";
 import pubsub, { EVENT } from "../../../../../utils/event";
+import { t } from "../../../../../i18n";
 
 type ImportType = "newImport" | "newExport" | "oldImport" | "v2convert";
 
@@ -30,7 +31,7 @@ const RenderImportAndExport = (props: {
    * 如果是选择的是导出则显示全部和各个分组
    */
   const groupOptions = useMemo(() => {
-    const baseOptions = [{ label: "全部", value: "all" }];
+    const baseOptions = [{ label: t("allGroups"), value: "all" }];
     const groupOpts = groups.map((group) => ({
       label: group.name,
       value: group.id,
@@ -82,15 +83,15 @@ const RenderImportAndExport = (props: {
             }
           }
           pubsub.publish(EVENT.updateGroups, highlights);
-          alert("导入成功");
+          alert(t("importSuccess"));
         } else {
-          alert("导入失败，请使用旧版本导入");
+          alert(t("importFailedOldVersion"));
         }
       };
       input.click();
     } catch (e) {
       console.error("Import error:", e);
-      alert("导入失败，请使用新版本的导出文件进行导入或者使用旧版本导入功能");
+      alert(t("importFailedNewVersion"));
     }
   };
 
@@ -118,7 +119,7 @@ const RenderImportAndExport = (props: {
       URL.revokeObjectURL(url);
     } catch (e) {
       console.error("Export error:", e);
-      alert("导出失败，请刷新页面后重试");
+      alert(t("exportFailed"));
     }
   };
 
@@ -169,13 +170,13 @@ const RenderImportAndExport = (props: {
               });
               currentGroup.items = newItems;
               pubsub.publish(EVENT.updateGroups, groups);
-              alert("导入成功");
+              alert(t("importSuccess"));
             } else {
-              alert("导入的文件格式不正确");
+              alert(t("importFileFormatError"));
             }
           } catch (error) {
-            console.error("解析文件失败", error);
-            alert("解析文件失败，请确保文件格式正确");
+            console.error(t("parseFileFailed"), error);
+            alert(t("parseError"));
           }
         };
         reader.readAsText(file);
@@ -212,9 +213,9 @@ const RenderImportAndExport = (props: {
           });
           currentGroup.items = newItems;
           pubsub.publish(EVENT.updateGroups, groups);
-          alert("导入成功");
+          alert(t("importSuccess"));
         } else {
-          alert("导入失败，请使用旧版本导入");
+          alert(t("importFailedOldVersion"));
         }
       };
       input.click();
@@ -237,7 +238,7 @@ const RenderImportAndExport = (props: {
     <>
       <div className={styles.editPanel}>
         <div className={styles.formGroup}>
-          <label htmlFor="mport-button">从新版文件导入</label>
+          <label htmlFor="mport-button">{t("importTypeLabel")}</label>
           <Select
             id="import-type"
             value={importType}
@@ -249,15 +250,15 @@ const RenderImportAndExport = (props: {
               }
             }}
             options={[
-              { label: "新版本导入", value: "newImport" },
-              { label: "新版本导出", value: "newExport" },
-              { label: "旧版本导入", value: "oldImport" },
-              { label: "v2版本转换导入", value: "v2convert" },
+              { label: t("newVersionImport"), value: "newImport" },
+              { label: t("newVersionExport"), value: "newExport" },
+              { label: t("oldVersionImport"), value: "oldImport" },
+              { label: t("v2VersionImport"), value: "v2convert" },
             ]}
           />
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="group-select">分组</label>
+          <label htmlFor="group-select">{t("groupSelectLabel")}</label>
           <Select
             id="group-select"
             value={selectedGroup}
@@ -268,27 +269,26 @@ const RenderImportAndExport = (props: {
         <div>
           <ul>
             <li>
-              新版本导入：指的是选择v3.0.0及以上版本导出的文件进行导入，注意只能选择v3版本以上导出文件，否则可能会导致数据丢失
+              {t("newVersionImportDesc")}
             </li>
             <li>
-              新版本导出：这个选项会导出v3版本特有的分组功能，从这个版本导出会保留全部的配置
+              {t("newVersionExportDesc")}
             </li>
             <li>
-              v2版本导入：指的是从v2.1.1及以上版本导出的文件，这个选项导入会保留你之前设置好的文字颜色、背景颜色、下划线、波浪线等设置
+              {t("v2VersionImportDesc")}
             </li>
             <li>
-              旧版本导入：指的是以 <b>换行</b> 、<b>逗号</b>{" "}
-              分割的文件导入，如果你是之前用的其他插件，那么你应该选择这个选项
+              {t("oldVersionImportDesc")}
             </li>
           </ul>
         </div>
 
         <div className={styles.actionButtons}>
           <button className={styles.cancelBtn} onClick={onCancel}>
-            取消
+            {t("cancel")}
           </button>
           <button className={styles.saveBtn} onClick={handleOk}>
-            确定
+            {t("confirm")}
           </button>
         </div>
       </div>
