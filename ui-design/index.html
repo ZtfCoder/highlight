@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高亮插件 UI 设计</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="highlight-plugin">
+        <!-- 全局开关 -->
+        <div class="global-switch">
+            <span class="switch-label">全局开启</span>
+            <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+            </label>
+        </div>
+
+        <div class="main-container">
+            <!-- 左侧菜单 -->
+            <div class="sidebar">
+                <!-- 搜索框 -->
+                <div class="search-box">
+                    <input type="text" placeholder="搜索高亮词...">
+                    <button class="search-btn">
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- 菜单列表 -->
+                <div class="menu-list">
+                    <!-- 固定菜单项 -->
+                    <div class="menu-item fixed-item active">
+                        <span>设置</span>
+                        <svg class="settings-icon" viewBox="0 0 24 24" width="18" height="18">
+                            <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"></path>
+                        </svg>
+                    </div>
+                    <div class="menu-item fixed-item">
+                        <span>添加高亮词</span>
+                        <svg class="add-icon" viewBox="0 0 24 24" width="18" height="18">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
+                        </svg>
+                    </div>
+                    <div class="menu-item fixed-item">
+                        <span>导入/导出</span>
+                        <svg class="import-export-icon" viewBox="0 0 24 24" width="18" height="18">
+                            <path d="M9 3L5 6.99h3V14h2V6.99h3L9 3zm7 14.01V10h-2v7.01h-3L15 21l4-3.99h-3z"></path>
+                        </svg>
+                    </div>
+
+                    <!-- 创建分组按钮 -->
+                    <div class="create-group">
+                        <button class="create-group-btn">
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-1 8h-3v3h-2v-3h-3v-2h3V9h2v3h3v2z"></path>
+                            </svg>
+                            <span>创建新分组</span>
+                        </button>
+                    </div>
+
+                    <!-- 高亮词分组列表 -->
+                    <div class="group-container">
+                        <!-- 默认分组 -->
+                        <div class="highlight-group expanded">
+                            <div class="group-header">
+                                <div class="group-title">
+                                    <span class="expand-icon">
+                                        <svg viewBox="0 0 24 24" width="16" height="16">
+                                            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path>
+                                        </svg>
+                                    </span>
+                                    <span>默认分组</span>
+                                    <span class="item-count">(4)</span>
+                                </div>
+                                <div class="group-controls">
+                                    <label class="switch small">
+                                        <input type="checkbox" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="highlight-list">
+                                <div class="highlight-item">
+                                    <div class="highlight-item-content">
+                                        <div class="color-preview" style="background-color: #ffeb3b;"></div>
+                                        <span class="highlight-text">重要通知</span>
+                                    </div>
+                                    <div class="highlight-item-controls">
+                                        <label class="switch small">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <button class="delete-btn">
+                                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="highlight-item active">
+                                    <div class="highlight-item-content">
+                                        <div class="color-preview" style="background-color: #4caf50;"></div>
+                                        <span class="highlight-text">技术文档</span>
+                                    </div>
+                                    <div class="highlight-item-controls">
+                                        <label class="switch small">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <button class="delete-btn">
+                                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="highlight-item">
+                                    <div class="highlight-item-content">
+                                        <div class="color-preview" style="background-color: #f44336;"></div>
+                                        <span class="highlight-text">错误信息</span>
+                                    </div>
+                                    <div class="highlight-item-controls">
+                                        <label class="switch small">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <button class="delete-btn">
+                                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="highlight-item">
+                                    <div class="highlight-item-content">
+                                        <div class="color-preview" style="background-color: #2196f3;"></div>
+                                        <span class="highlight-text">开发提示</span>
+                                    </div>
+                                    <div class="highlight-item-controls">
+                                        <label class="switch small">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <button class="delete-btn">
+                                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 前端分组 -->
+                        <div class="highlight-group">
+                            <div class="group-header">
+                                <div class="group-title">
+                                    <span class="expand-icon">
+                                        <svg viewBox="0 0 24 24" width="16" height="16">
+                                            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+                                        </svg>
+                                    </span>
+                                    <span>前端相关</span>
+                                    <span class="item-count">(2)</span>
+                                </div>
+                                <div class="group-controls">
+                                    <label class="switch small">
+                                        <input type="checkbox" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <button class="group-menu-btn">
+                                        <svg viewBox="0 0 24 24" width="16" height="16">
+                                            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="highlight-list" style="display: none;">
+                                <div class="highlight-item">
+                                    <div class="highlight-item-content">
+                                        <div class="color-preview" style="background-color: #e91e63;"></div>
+                                        <span class="highlight-text">前端框架</span>
+                                    </div>
+                                    <div class="highlight-item-controls">
+                                        <label class="switch small">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <button class="delete-btn">
+                                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="highlight-item">
+                                    <div class="highlight-item-content">
+                                        <div class="color-preview" style="background-color: #ff9800;"></div>
+                                        <span class="highlight-text">待办事项</span>
+                                    </div>
+                                    <div class="highlight-item-controls">
+                                        <label class="switch small">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <button class="delete-btn">
+                                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 后端分组 -->
+                        <div class="highlight-group">
+                            <div class="group-header">
+                                <div class="group-title">
+                                    <span class="expand-icon">
+                                        <svg viewBox="0 0 24 24" width="16" height="16">
+                                            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+                                        </svg>
+                                    </span>
+                                    <span>后端相关</span>
+                                    <span class="item-count">(1)</span>
+                                </div>
+                                <div class="group-controls">
+                                    <label class="switch small">
+                                        <input type="checkbox" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <button class="group-menu-btn">
+                                        <svg viewBox="0 0 24 24" width="16" height="16">
+                                            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="highlight-list" style="display: none;">
+                                <div class="highlight-item">
+                                    <div class="highlight-item-content">
+                                        <div class="color-preview" style="background-color: #9c27b0;"></div>
+                                        <span class="highlight-text">后端接口</span>
+                                    </div>
+                                    <div class="highlight-item-controls">
+                                        <label class="switch small">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <button class="delete-btn">
+                                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧内容区域 -->
+            <div class="content">
+                <div class="content-header">
+                    <h2>编辑高亮词: <span>技术文档</span></h2>
+                </div>
+
+                <div class="edit-panel">
+                    <div class="form-group">
+                        <label for="highlight-text">高亮词文本</label>
+                        <input type="text" id="highlight-text" value="技术文档">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="highlight-group">所属分组</label>
+                        <div class="select-wrapper">
+                            <select id="highlight-group">
+                                <option value="default">默认分组</option>
+                                <option value="frontend">前端相关</option>
+                                <option value="backend">后端相关</option>
+                            </select>
+                            <span class="select-arrow">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M7 10l5 5 5-5z"></path>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="text-color">文字颜色</label>
+                            <div class="color-picker">
+                                <input type="color" id="text-color" value="#000000">
+                                <span class="color-code">#000000</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="bg-color">背景颜色</label>
+                            <div class="color-picker">
+                                <input type="color" id="bg-color" value="#4caf50">
+                                <span class="color-code">#4caf50</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="style-options">
+                        <div class="style-option">
+                            <input type="checkbox" id="style-bold">
+                            <label for="style-bold">
+                                <span class="option-icon bold-icon">B</span>
+                                <span class="option-text">加粗</span>
+                            </label>
+                        </div>
+                        <div class="style-option">
+                            <input type="checkbox" id="style-underline">
+                            <label for="style-underline">
+                                <span class="option-icon underline-icon">U</span>
+                                <span class="option-text">下划线</span>
+                            </label>
+                        </div>
+                        <div class="style-option">
+                            <input type="checkbox" id="style-wavy">
+                            <label for="style-wavy">
+                                <span class="option-icon wavy-icon">~</span>
+                                <span class="option-text">波浪线</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="preview-section">
+                        <h3>样式预览</h3>
+                        <div class="preview-content">
+                            <p>这是一段包含<span class="preview-highlight">技术文档</span>的示例文字。您可以在此看到高亮效果的实时预览。</p>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="cancel-btn">取消</button>
+                        <button class="save-btn">保存修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 分组管理弹窗 -->
+    <div class="modal" id="group-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>分组管理</h2>
+                <button class="close-btn">
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="group-name">分组名称</label>
+                    <input type="text" id="group-name" placeholder="输入分组名称">
+                </div>
+
+                <div class="group-list">
+                    <h3>当前分组列表</h3>
+                    <div class="group-item">
+                        <span class="group-item-name">默认分组</span>
+                        <div class="group-item-controls">
+                            <button class="edit-btn" disabled>
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
+                                </svg>
+                            </button>
+                            <button class="delete-btn" disabled>
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="group-item">
+                        <span class="group-item-name">前端相关</span>
+                        <div class="group-item-controls">
+                            <button class="edit-btn">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
+                                </svg>
+                            </button>
+                            <button class="delete-btn">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="group-item">
+                        <span class="group-item-name">后端相关</span>
+                        <div class="group-item-controls">
+                            <button class="edit-btn">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
+                                </svg>
+                            </button>
+                            <button class="delete-btn">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn">取消</button>
+                <button class="save-btn">创建分组</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 分组操作菜单 -->
+    <div class="context-menu" id="group-context-menu">
+        <div class="context-menu-item">
+            <svg viewBox="0 0 24 24" width="16" height="16">
+                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
+            </svg>
+            <span>编辑分组</span>
+        </div>
+        <div class="context-menu-item">
+            <svg viewBox="0 0 24 24" width="16" height="16">
+                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
+            </svg>
+            <span>删除分组</span>
+        </div>
+    </div>
+</body>
+</html>

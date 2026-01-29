@@ -1,0 +1,38 @@
+.customSelect {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  min-width: 120px;
+
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    padding: 8px 36px 8px 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 6px;
+    background: #fff;
+    color: #222;
+    font-size: 15px;
+    outline: none;
+    transition: border 0.2s;
+    cursor: pointer;
+
+    &:focus {
+      border-color: #409eff;
+      box-shadow: 0 0 0 2px #e6f7ff;
+    }
+  }
+  .selectArrow {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .selectArrow svg {
+    fill: #666;
+  }
+}

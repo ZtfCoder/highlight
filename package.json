@@ -1,6 +1,6 @@
 {
   "name": "yp-heightlight-main",
-  "version": "2.1.2",
+  "version": "3.0.1",
   "description": "浏览器插件高亮",
   "scripts": {
     "b":"npm run build",

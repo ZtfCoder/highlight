@@ -63,11 +63,12 @@
 
 
 .actions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 10px;
   align-items: center;
+  justify-content: space-around;
   button {
     color: white;
     padding: 10px 15px;
@@ -97,10 +98,6 @@
   .refreshBtn {
     color: #000;
     background: #ffc107;
-  }
-  .exportBtn2{
-    background: #17a2b8;
-    color: #fff;
   }
 }
 

@@ -30,6 +30,8 @@ export const listenerIframeDOMChange = async (
     const updateHighlightStyles = () => {
       if (enabled) {
         applyHighlightStyles(targetWindow, targetDocument as any, node);
+      }else{
+        clearAllHighlightStyles(targetWindow);
       }
     };
 

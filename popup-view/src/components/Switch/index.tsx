@@ -3,7 +3,7 @@ import styles from './Switch.module.scss';
 
 interface SwitchProps {
   checked: boolean;
-  onChange: (checked: boolean) => void;
+  onChange: (checked: boolean, e?: React.MouseEvent) => void;
   disabled?: boolean;
   size?: 'small' | 'medium' | 'large';
   label?: string;
@@ -18,9 +18,9 @@ const Switch: React.FC<SwitchProps> = ({
   label,
   className = ''
 }) => {
-  const handleToggle = () => {
+  const handleToggle = (e: React.MouseEvent) => {
     if (!disabled) {
-      onChange(!checked);
+      onChange(!checked, e);
     }
   };
 
@@ -46,12 +46,6 @@ const Switch: React.FC<SwitchProps> = ({
         aria-checked={checked}
         aria-disabled={disabled}
         tabIndex={disabled ? -1 : 0}
-        onKeyDown={(e) => {
-          if (e.key === ' ' || e.key === 'Enter') {
-            e.preventDefault();
-            handleToggle();
-          }
-        }}
       >
         <div className={styles.thumb} />
       </div>

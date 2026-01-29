@@ -47,6 +47,8 @@ export const init = async () => {
   const refreshWindowHighlights = debounce(() => {
     if (enabled) {
       applyHighlightStyles(window, document, document.body);
+    }else{
+      clearAllHighlightStyles(window);
     }
   }, 250);
 

@@ -25,13 +25,30 @@ interface ChromeStorageLocal {
 
 
 interface HighlightItem {
+  /** id  */
   id: string;
+  /** 文字  */
   text: string;
+  /** 背景颜色 */
   color: string;
+  /** 文字颜色 */
   textColor:string
-  isUnderline: boolean;//下划线
-  isWavy: boolean;//波浪线
+  /** 下划线 */
+  isUnderline?: boolean;
+  /** 波浪线 */
+  isWavy?: boolean;
+  /** 是否启用 */
+  enabled: boolean;
 }
+
+interface HighlightGroup {
+  id: string;
+  name: string;
+  enabled: boolean;
+  items: HighlightItem[];
+}
+
+type PanelMode = 'edit' | 'createGroup' | 'editGroup' | 'importExport' | 'addHighlight' | 'empty';
 
 declare interface Chrome {
   tabs: ChromeTabs;
