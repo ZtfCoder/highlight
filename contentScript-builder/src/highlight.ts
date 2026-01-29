@@ -81,17 +81,34 @@ export const applyHighlightStyles = async (
     // 检查范围是否与已占用范围重叠
     const isRangeOccupied = (range: Range): boolean => {
       for (const occupied of occupiedRanges) {
-        // 简化的重叠检查：如果节点相同且偏移范围有交集
-        if (range.startContainer === occupied.start && range.endContainer === occupied.end) {
-          const rangeStart = range.startOffset;
-          const rangeEnd = range.endOffset;
-          const occupiedStart = occupied.startOffset;
-          const occupiedEnd = occupied.endOffset;
+        try {
+          // 创建临时 Range 对象用于比较
+          const occupiedRange = targetDocument.createRange();
+          occupiedRange.setStart(occupied.start, occupied.startOffset);
+          occupiedRange.setEnd(occupied.end, occupied.endOffset);
           
-          // 检查是否有重叠
-          if (!(rangeEnd <= occupiedStart || rangeStart >= occupiedEnd)) {
+          // 使用 Range.compareBoundaryPoints 进行全面的重叠检查
+          // 这可以正确处理跨文本节点的情况
+          
+          // range 的结束位置是否在 occupied 的开始位置之后
+          const rangeEndAfterOccupiedStart = 
+            range.compareBoundaryPoints(Range.END_TO_START, occupiedRange) > 0;
+          
+          // range 的开始位置是否在 occupied 的结束位置之前
+          const rangeStartBeforeOccupiedEnd = 
+            range.compareBoundaryPoints(Range.START_TO_END, occupiedRange) < 0;
+          
+          // 如果两个条件都满足，说明存在重叠
+          if (rangeEndAfterOccupiedStart && rangeStartBeforeOccupiedEnd) {
+            occupiedRange.detach();
             return true;
           }
+          
+          occupiedRange.detach();
+        } catch (error) {
+          // 如果比较失败（例如节点已被移除），跳过此检查
+          console.warn("Range comparison failed:", error);
+          continue;
         }
       }
       return false;
