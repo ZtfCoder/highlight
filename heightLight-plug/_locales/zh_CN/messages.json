@@ -350,5 +350,66 @@
   "effectPreview": {
     "message": "效果显示",
     "description": "效果预览标签"
+  },
+  "batchImportMode": {
+    "message": "批量导入模式",
+    "description": "批量导入模式开关标签"
+  },
+  "batchImportHint": {
+    "message": "支持换行、逗号、空格分割",
+    "description": "批量导入提示"
+  },
+  "batchImportPlaceholder": {
+    "message": "输入多个高亮词，支持换行、逗号、空格分割",
+    "description": "批量导入输入框占位符"
+  },
+  "batchImportBtn": {
+    "message": "批量导入",
+    "description": "批量导入按钮"
+  },
+  "batchPreviewLabel": {
+    "message": "将导入以下高亮词：",
+    "description": "批量预览标签"
+  },
+  "moreItems": {
+    "message": "个更多",
+    "description": "更多项目"
+  },
+  "allHighlightsExist": {
+    "message": "所有高亮词已存在",
+    "description": "所有高亮词已存在提示"
+  },
+  "uniformStyleLabel": {
+    "message": "统一设置分组样式",
+    "description": "统一样式设置标签"
+  },
+  "itemCount": {
+    "message": "$1 个高亮词",
+    "description": "高亮词数量",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "uniformPreviewText": {
+    "message": "统一样式预览：",
+    "description": "统一样式预览文本"
+  },
+  "applyUniformStyle": {
+    "message": "应用统一样式",
+    "description": "应用统一样式按钮"
+  },
+  "applyUniformStyleConfirm": {
+    "message": "确定要将统一样式应用到该分组的所有高亮词吗？此操作不可撤销！",
+    "description": "应用统一样式确认"
+  },
+  "importUniformStyleLabel": {
+    "message": "导入时使用统一样式",
+    "description": "导入统一样式标签"
+  },
+  "importPreviewText": {
+    "message": "导入样式预览：",
+    "description": "导入样式预览文本"
   }
 }

@@ -17,6 +17,10 @@ interface EditPanelProps {
   selectedGroupId?: string;
   /** 编辑保存高亮词  */
   onEditSave?: (highlight: HighlightItem, groupId: string) => void;
+  /** 批量保存高亮词 */
+  onBatchSave?: (highlights: HighlightItem[], groupId: string) => void;
+  /** 应用统一样式到分组 */
+  onApplyUniformStyle?: (groupId: string, style: { textColor: string; bgColor: string; underline: boolean; wavy: boolean }) => void;
 }
 
 /**
@@ -62,6 +66,7 @@ const EditPanel = (props: EditPanelProps) => {
           panelMode={panelMode}
           onCancel={onCancel}
           onEditSave={props.onEditSave}
+          onBatchSave={props.onBatchSave}
         />
       )}
       {panelMode === "editGroup" && (
@@ -71,6 +76,7 @@ const EditPanel = (props: EditPanelProps) => {
           panelMode={panelMode}
           onCancel={onCancel}
           handleSave={onCreateGroup}
+          onApplyUniformStyle={props.onApplyUniformStyle}
         />
       )}
       {panelMode === "importExport" && (

@@ -346,5 +346,66 @@
   "globalEnable": {
     "message": "Global Enable",
     "description": "Global enable label"
+  },
+  "batchImportMode": {
+    "message": "Batch Import Mode",
+    "description": "Batch import mode toggle label"
+  },
+  "batchImportHint": {
+    "message": "Supports newline, comma, space separation",
+    "description": "Batch import hint"
+  },
+  "batchImportPlaceholder": {
+    "message": "Enter multiple highlight words, separated by newline, comma, or space",
+    "description": "Batch import input placeholder"
+  },
+  "batchImportBtn": {
+    "message": "Batch Import",
+    "description": "Batch import button"
+  },
+  "batchPreviewLabel": {
+    "message": "Will import the following highlights:",
+    "description": "Batch preview label"
+  },
+  "moreItems": {
+    "message": "more",
+    "description": "More items"
+  },
+  "allHighlightsExist": {
+    "message": "All highlights already exist",
+    "description": "All highlights exist message"
+  },
+  "uniformStyleLabel": {
+    "message": "Apply Uniform Style to Group",
+    "description": "Uniform style setting label"
+  },
+  "itemCount": {
+    "message": "$1 highlights",
+    "description": "Highlight count",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "uniformPreviewText": {
+    "message": "Uniform style preview: ",
+    "description": "Uniform style preview text"
+  },
+  "applyUniformStyle": {
+    "message": "Apply Uniform Style",
+    "description": "Apply uniform style button"
+  },
+  "applyUniformStyleConfirm": {
+    "message": "Are you sure you want to apply the uniform style to all highlights in this group? This action cannot be undone!",
+    "description": "Apply uniform style confirmation"
+  },
+  "importUniformStyleLabel": {
+    "message": "Use Uniform Style When Importing",
+    "description": "Import uniform style label"
+  },
+  "importPreviewText": {
+    "message": "Import style preview: ",
+    "description": "Import style preview text"
   }
 }

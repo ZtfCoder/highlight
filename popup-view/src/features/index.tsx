@@ -422,6 +422,67 @@ const FeaturesApp = () => {
   };
 
   /**
+   * 处理批量保存高亮词
+   * @param highlights 高亮词数组
+   * @param groupId 分组id
+   */
+  const handleBatchSaveHighlights = async (
+    highlights: HighlightItem[],
+    groupId: string
+  ) => {
+    const targetGroup = groups.find((g) => g.id === groupId);
+    if (!targetGroup) return;
+
+    // 过滤掉已存在的高亮词（按文本去重）
+    const existingTexts = new Set(targetGroup.items.map((item) => item.text));
+    const newHighlights = highlights.filter(
+      (h) => !existingTexts.has(h.text)
+    );
+
+    if (newHighlights.length === 0) {
+      alert(t("allHighlightsExist") || "所有高亮词已存在");
+      return;
+    }
+
+    const newGroups = groups.map((group) =>
+      group.id === groupId
+        ? { ...group, items: [...group.items, ...newHighlights] }
+        : group
+    );
+    setGroups(newGroups);
+    await handleRefreshHighlights(newGroups);
+    handleCancel();
+  };
+
+  /**
+   * 应用统一样式到分组内所有高亮词
+   * @param groupId 分组id
+   * @param style 样式设置
+   */
+  const handleApplyUniformStyle = async (
+    groupId: string,
+    style: { textColor: string; bgColor: string; underline: boolean; wavy: boolean }
+  ) => {
+    const newGroups = groups.map((group) => {
+      if (group.id === groupId) {
+        return {
+          ...group,
+          items: group.items.map((item) => ({
+            ...item,
+            textColor: style.textColor,
+            color: style.bgColor,
+            isUnderline: style.underline,
+            isWavy: style.wavy,
+          })),
+        };
+      }
+      return group;
+    });
+    setGroups(newGroups);
+    await handleRefreshHighlights(newGroups);
+  };
+
+  /**
    * 修改分组启用和禁用
    * @param groupId 分组id
    * @param enabled
@@ -539,6 +600,8 @@ const FeaturesApp = () => {
             onCancel={handleCancel}
             onCreateGroup={handleCreateOrEditNewGroup}
             onEditSave={handleEditSaveHighlight}
+            onBatchSave={handleBatchSaveHighlights}
+            onApplyUniformStyle={handleApplyUniformStyle}
             selectedGroupId={selectedGroupId}
           />
         </div>
